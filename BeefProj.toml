@@ -1,5 +1,5 @@
 FileVersion = 1
-Dependencies = {corlib = "*", raylib-beef = "*"}
+Dependencies = {corlib = "*", corlib = "*", raylib-beef = "*"}
 
 [Project]
 Name = "raylib-aseprite-beef"
@@ -9,3 +9,7 @@ DefaultNamespace = "RaylibAsepriteBeef"
 
 [Configs.Debug.Win64]
 LibPaths = ["$(ProjectDir)/lib/$(Platform)/raylib-aseprite.lib"]
+
+[Configs.Debug.wasm32]
+OtherLinkFlags = "$(LinkFlags) -s USE_GLFW=3 -D PLATFORM_WEB"
+LibPaths = ["$(ProjectDir)\\lib\\wasm\\raylib-aseprite.a"]

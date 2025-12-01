@@ -5,3 +5,42 @@ Dependencies = {corlib = "*", raylib-aseprite-beef = "*"}
 Name = "example"
 TargetType = "BeefGUIApplication"
 StartupObject = "example.Program"
+
+[Configs.Debug.Win32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Debug.Win64]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Debug.wasm32]
+TargetDirectory = "$(ProjectDir)/dist/$(Platform)_$(Configuration)"
+TargetName = "index"
+OtherLinkFlags = "$(LinkFlags) -o index.html --use-preload-plugins --preload-file ../../res -DPLATFORM_WEB --shell-file D:/Software/Beef/wasm/shell.html -s ASYNCIFY=1"
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Release.Win32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Release.Win64]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Release.wasm32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Paranoid.Win32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Paranoid.Win64]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Paranoid.wasm32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Test.Win32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Test.Win64]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]
+
+[Configs.Test.wasm32]
+PostBuildCmds = ["CopyFilesIfNewer(\"$(ProjectDir)/res\",\"$(ProjectDir)/dist/$(Platform)_$(Configuration)\")"]

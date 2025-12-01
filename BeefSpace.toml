@@ -1,5 +1,6 @@
 FileVersion = 1
 Projects = {raylib-aseprite-beef = {Path = "."}, raylib-beef = "*", example = {Path = "example"}}
+ExtraPlatforms = ["switch", "wasm32"]
 
 [Workspace]
 StartupProject = "example"

@@ -105,12 +105,12 @@ public static class RaylibAseprite
 	};
 
 	[CRepr]
-	struct ase_tag_t
+	public struct ase_tag_t
 	{
-		int32 from_frame;
-		int32 to_frame;
+		public int32 from_frame;
+		public int32 to_frame;
 		ase_animation_direction_t loop_animation_direction;
-		int32 rep; //repeat
+		public int32 rep; //repeat
 		uint8 r, g, b;
 		char8* name;
 		ase_udata_t udata;
@@ -146,9 +146,9 @@ public static class RaylibAseprite
 	};
 
 	[CRepr]
-	struct ase_palette_t
+	public struct ase_palette_t
 	{
-		int32 entry_count;
+		public int32 entry_count;
 		ase_palette_entry_t[CUTE_ASEPRITE_MAX_PALETTE_ENTRIES] entries;
 	};
 
@@ -171,7 +171,7 @@ public static class RaylibAseprite
 	};
 
 	[CRepr]
-	enum ase_mode_t
+	public enum ase_mode_t
 	{
 		ASE_MODE_RGBA,
 		ASE_MODE_GRAYSCALE,
@@ -179,11 +179,11 @@ public static class RaylibAseprite
 	};
 
 	[CRepr]
-	struct ase_t
+	public struct ase_t
 	{
-		ase_mode_t mode;
+		public ase_mode_t mode;
 		int32 w, h;
-		int32 transparent_palette_entry_index;
+		public int32 transparent_palette_entry_index;
 		int32 number_of_colors;
 		int32 pixel_w;
 		int32 pixel_h;
@@ -193,7 +193,7 @@ public static class RaylibAseprite
 		int32 grid_h;
 		int32 has_color_profile;
 		ase_color_profile_t color_profile;
-		ase_palette_t palette;
+		public ase_palette_t palette;
 
 		int32 layer_count;
 		ase_layer_t[CUTE_ASEPRITE_MAX_LAYERS] layers;
@@ -201,8 +201,8 @@ public static class RaylibAseprite
 		int32 frame_count;
 		ase_frame_t* frames;
 
-		int32 tag_count;
-		ase_tag_t[CUTE_ASEPRITE_MAX_TAGS] tags;
+		public int32 tag_count;
+		public ase_tag_t[CUTE_ASEPRITE_MAX_TAGS] tags;
 
 		int32 slice_count;
 		ase_slice_t[CUTE_ASEPRITE_MAX_SLICES] slice;
@@ -212,9 +212,42 @@ public static class RaylibAseprite
 
 	//-----
 
+	public static AsepriteTag GenDefaultTag(Aseprite ase)
+	{
+		var tag = GenAsepriteTagDefault();
+		tag.aseprite = ase;
+		tag.color = .(255,255,255,255);
+		tag.currentFrame = 0;
+		tag.direction = 0;
+		tag.loop = true;
+		tag.name = "default";
+		tag.speed = 1f;
+		tag.paused = false;
+		tag.timer = 1f;
+
+		ase.ase.tag_count = 1;
+		ase_tag_t* t = &ase.ase.tags[0];
+		t.from_frame = 0;
+		t.to_frame = (int32)GetAsepriteFrameCount(ase)-1;
+		t.rep = 1;
+		tag.tag = t;
+
+		return tag;
+	}
+
+	public static int GetAsepriteFrameCount(Aseprite a)
+	{
+		return a.ase.[Friend]frame_count;
+	}
+
+	public static void SetTag(Aseprite a, AsepriteTag* t)
+	{
+		a.ase.tags[0] = *t.tag;
+	}
+
 	[CRepr]
 	public struct Aseprite {
-	    ase_t* ase;         // Pointer to the cute_aseprite data.
+	    public ase_t* ase;         // Pointer to the cute_aseprite data.
 	};
 
 	[CRepr]
@@ -228,7 +261,7 @@ public static class RaylibAseprite
 	    public bool loop;          // Whether to continue to play the animation when the animation finishes
 	    public bool paused;        // Set to true to not progression of the animation
 	    public Aseprite aseprite;  // The loaded Aseprite file
-	    ase_tag_t* tag;     // The active tag to act upon
+	    public ase_tag_t* tag;     // The active tag to act upon
 	};
 
 	[CRepr]
